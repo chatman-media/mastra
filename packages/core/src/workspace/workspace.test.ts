@@ -322,17 +322,15 @@ Line 3 conclusion`;
     });
 
     it('should forward bm25.tokenize to the search engine (CJK / custom tokenizer support)', async () => {
-      // Track calls to the custom tokenizer
-      const tokenizeCalls: string[] = [];
-
       const filesystem = new LocalFilesystem({ basePath: tempDir });
       const workspace = new Workspace({
         filesystem,
         bm25: {
           tokenize: {
-            // Custom splitPattern that splits on any whitespace or CJK punctuation,
-            // and records each text passed to the tokenizer via a side-effect.
+            // Split on whitespace and CJK punctuation, and keep non-ASCII
+            // characters (the default `\w`-based stripping drops CJK).
             splitPattern: /[\s、。！？]+/,
+            removePunctuation: false,
           },
         },
       });

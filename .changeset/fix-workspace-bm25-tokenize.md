@@ -2,7 +2,7 @@
 '@mastra/core': patch
 ---
 
-fix(workspace): forward `bm25.tokenize` to SearchEngine so CJK and other non-Latin content is searchable
+Forward the `bm25.tokenize` option from `Workspace` config through to the underlying `SearchEngine`, so a custom tokenizer can be supplied for CJK and other non-Latin content.
 
 `Workspace` built its internal `SearchEngine` only forwarding `k1`/`b` from `config.bm25`, silently dropping any `tokenize` field. The default tokenizer uses `\w`-based patterns that strip CJK characters, making Japanese/Chinese/Korean content effectively unsearchable.
 

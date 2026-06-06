@@ -280,9 +280,10 @@ export interface WorkspaceConfig<
   /**
    * Enable BM25 keyword search.
    * Pass `true` for defaults, or an object for custom parameters.
-   * The `tokenize` field controls how text is split into tokens —
-   * supply a custom `splitPattern` (e.g. `/[\s\p{P}]+/u`) to handle
-   * CJK or other non-Latin scripts that the default `\w`-based splitter drops.
+   * The `tokenize` field controls how text is split into tokens. To handle CJK
+   * or other non-Latin scripts, supply a custom `splitPattern` (e.g.
+   * `/[\s\p{P}]+/u`) and set `removePunctuation: false` — the default punctuation
+   * stripping is `\w`-based and removes non-ASCII characters first.
    */
   bm25?: boolean | (BM25Config & { tokenize?: TokenizeOptions });
 
